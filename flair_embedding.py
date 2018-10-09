@@ -50,7 +50,7 @@ embeddings: StackedEmbeddings = StackedEmbeddings(embeddings=embedding_types)
 # 5. initialize sequence tagger
 from flair.models import SequenceTagger
 
-tagger: SequenceTagger = SequenceTagger(hidden_size=100,
+tagger: SequenceTagger = SequenceTagger(hidden_size=200,
                                         embeddings=embeddings,
                                         tag_dictionary=tag_dictionary,
                                         tag_type=tag_type,
@@ -62,10 +62,10 @@ from flair.trainers import SequenceTaggerTrainer
 trainer: SequenceTaggerTrainer = SequenceTaggerTrainer(tagger, corpus, test_mode=True)
 
 # 7. start training
-if os.path.isdir('../my_flair_model') == False:
-    os.mkdir('../my_flair_model')
+if os.path.isdir('./model') == False:
+    os.mkdir('./my_flair_model')
 
-trainer.train('../my_flair_model/ner_model',
+trainer.train('./model/ner_model',
               learning_rate=0.015,
               mini_batch_size=10,
               max_epochs=50)
