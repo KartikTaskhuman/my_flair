@@ -7,13 +7,21 @@ from typing import List
 import os
 
 def read_data():
-    dirname = './conll_format'
+    # dirname = './conll_format'
 
-    sentences_train = NLPTaskDataFetcher.read_conll_sequence_labeling_data(dirname + '/arr.train')
-    sentences_dev = NLPTaskDataFetcher.read_conll_sequence_labeling_data(dirname + '/arr.dev')
-    # sentences_test = NLPTaskDataFetcher.read_conll_sequence_labeling_data(dirname + '/arr.test')
+    # define columns
+    columns = {0: 'text', 1: 'pos', 2: 'np'}
 
-    return TaggedCorpus(sentences_train, sentences_dev, sentences_dev)
+    # this is the folder in which train, test and dev files reside
+    data_folder = './conll_format'
+
+    # retrieve corpus using column format, data folder and the names of the train, dev and test files
+    corpus: TaggedCorpus = NLPTaskDataFetcher.fetch_column_corpus(data_folder, columns,
+                                                              train_file='arr.train',
+                                                              test_file='arr.test',
+                                                              dev_file='arr.dev')
+
+    return corpus
 
 # 1. get the corpus
 corpus: TaggedCorpus = read_data()
